@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-// Node class definition
 class Node {
 public:
     int data;
@@ -13,7 +12,6 @@ public:
     }
 };
 
-// LinkedList class definition
 class LinkedList {
 private:
     Node* head;
@@ -23,14 +21,12 @@ public:
         head = nullptr;
     }
 
-    // Add data at the end
     void append(int data) {
         Node* newNode = new Node(data);
         if (!head) {
             head = newNode;
             return;
         }
-
         Node* temp = head;
         while (temp->next != nullptr) {
             temp = temp->next;
@@ -38,7 +34,12 @@ public:
         temp->next = newNode;
     }
 
-    // Display the linked list
+    void addAtStart(int data) {
+        Node* newNode = new Node(data);
+        newNode->next = head;
+        head = newNode;
+    }
+
     void display() {
         Node* temp = head;
         while (temp != nullptr) {
@@ -48,14 +49,6 @@ public:
         cout << "null" << endl;
     }
 
-    // Insert at beginning
-    void insertAtBeginning(int data) {
-        Node* newNode = new Node(data);
-        newNode->next = head;
-        head = newNode;
-    }
-
-    // Search for a value
     void search(int key) {
         Node* temp = head;
         while (temp != nullptr) {
@@ -68,7 +61,6 @@ public:
         cout << "Element not found: " << key << endl;
     }
 
-    // Delete a node by value
     void deleteNode(int key) {
         Node* temp = head;
         Node* prev = nullptr;
@@ -95,7 +87,6 @@ public:
         cout << "Deleted: " << key << endl;
     }
 
-    // Reverse the linked list
     void reverse() {
         Node* prev = nullptr;
         Node* current = head;
@@ -113,59 +104,64 @@ public:
     }
 };
 
-// Main menu for user interaction
 int main() {
     LinkedList list;
     int choice, data;
 
     do {
         cout << "\n--- Linked List CRUD Menu ---\n";
-        cout << "1. Add data at the end\n";
-        cout << "2. Insert at Beginning\n";
-        cout << "3. Display\n";
-        cout << "4. Search\n";
-        cout << "5. Delete by Value\n";
-        cout << "6. Reverse List\n";
-        cout << "7. Exit\n";
+        cout << "1. Add Data\n";
+        cout << "2. Add at Start\n";
+        cout << "3. Add at End\n";
+        cout << "4. Display\n";
+        cout << "5. Search\n";
+        cout << "6. Delete\n";
+        cout << "7. Reverse\n";
+        cout << "8. Exit\n";
         cout << "Enter your choice: ";
         cin >> choice;
 
         switch (choice) {
         case 1:
-            cout << "Enter value to add at the end: ";
+            cout << "Enter value to add: ";
             cin >> data;
             list.append(data);
             break;
         case 2:
-            cout << "Enter value to insert at beginning: ";
+            cout << "Enter value to add at start: ";
             cin >> data;
-            list.insertAtBeginning(data);
+            list.addAtStart(data);
             break;
         case 3:
+            cout << "Enter value to add at end: ";
+            cin >> data;
+            list.append(data);
+            break;
+        case 4:
             cout << "Linked List: ";
             list.display();
             break;
-        case 4:
+        case 5:
             cout << "Enter value to search: ";
             cin >> data;
             list.search(data);
             break;
-        case 5:
+        case 6:
             cout << "Enter value to delete: ";
             cin >> data;
             list.deleteNode(data);
             break;
-        case 6:
+        case 7:
             list.reverse();
             break;
-        case 7:
+        case 8:
             cout << "Exiting program. Thank you!" << endl;
             break;
         default:
             cout << "Invalid choice. Please try again." << endl;
         }
 
-    } while (choice != 7);
+    } while (choice != 8);
 
     return 0;
 }
